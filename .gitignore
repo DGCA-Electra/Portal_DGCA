@@ -1,0 +1,22 @@
+# --- Segurança (NUNCA SUBIR) ---
+.env
+*.pem
+*.key
+secrets.json
+
+# --- Python / Ambiente Virtual ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# --- Dados Locais (Se você copiou para pasta local) ---
+Dados/
+Base_Dados/
+*.xlsx
+*.pdf
+*.log
+
+# --- VS Code ---
+.vscode/

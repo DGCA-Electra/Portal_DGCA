@@ -1,0 +1,15 @@
+streamlit
+pandas
+openpyxl
+msal
+bleach
+plotly
+scipy
+html2image
+img2pdf
+matplotlib
+pillow
+numpy
+python-dotenv
+jinja2
+requests
