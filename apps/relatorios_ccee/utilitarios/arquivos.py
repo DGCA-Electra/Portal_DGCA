@@ -1,10 +1,15 @@
 import pandas as pd
-from pathlib import Path
-from typing import Dict, Any, Optional
 import json
 import logging
+import os
+from pathlib import Path
+from typing import Dict, Any, Optional
+from pathlib import Path
 
+ROOT_DIR = Path(__file__).parent.parent.parent 
+ASSETS_DIR = ROOT_DIR / "assets"
 TEMPLATES_JSON_PATH = "src/configuracoes/email_templates.json"
+
 class ErroProcessamento(Exception):
     pass
 
@@ -44,3 +49,11 @@ def salvar_templates_email(dados: Dict[str, Any]) -> None:
             json.dump(dados, f, ensure_ascii=False, indent=2)
     except Exception as e:
         raise ErroProcessamento(f"Falha ao salvar {TEMPLATES_JSON_PATH}: {e}")
+
+def obtem_asset_path(filename):
+    path = ASSETS_DIR / filename
+    if not path.exists():
+        # Fallback ou log de erro
+        print(f"ALERTA: Asset não encontrado: {path}")
+        return None
+    return str(path)

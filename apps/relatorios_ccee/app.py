@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from .interface.principal import exibir_pagina_principal
+from .interface.ui_relatorios import exibir_pagina_principal
 from .interface.configuracao import show_config_page
 from .interface.login import show_login_page
 
@@ -13,16 +13,6 @@ LOG_DIR = 'logs'
 os.makedirs(LOG_DIR, exist_ok=True)
 LOG_FILE = os.path.join(LOG_DIR, 'app.log')
 logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', encoding='utf-8')
-
-st.set_page_config(
-    page_title="Envio de Relatórios CCEE",
-    page_icon="static/icon.png",
-    layout="wide",
-    initial_sidebar_state="auto",
-    menu_items={
-        'About': "Aplicação para automação de envio de e-mails DGCA."
-    }
-)
 
 def logout():
     """Limpa as informações de sessão relacionadas ao login."""

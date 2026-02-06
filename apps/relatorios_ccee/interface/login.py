@@ -4,6 +4,7 @@ import requests
 import os
 import logging
 from dotenv import load_dotenv
+from apps.relatorios_ccee.utilitarios.arquivos import obtem_asset_path
 
 # --- CARREGAMENTO DO AMBIENTE ---
 # Garante que o .env seja lido da pasta atual do aplicativo
@@ -96,10 +97,7 @@ def obter_info_usuario(token_acesso):
         return None
 
 def show_login_page():
-    # Logo e Título
-    # Ajuste o caminho da logo se necessário, ex: "static/logo.png"
-    if os.path.exists("static/logo.png"):
-        st.image("static/logo.png", width=250)
+    st.image(obtem_asset_path("logo.png"))
     
     st.title("Login - Envio de Relatórios CCEE")
     st.write("Por favor, autentique-se com sua conta Microsoft para continuar.")

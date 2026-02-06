@@ -1,8 +1,8 @@
-from __future__ import annotations
 import re
+import bleach
+from __future__ import annotations
 from pathlib import Path
 from typing import Iterable, Tuple
-import bleach
 
 TAGS_PERMITIDAS = list(bleach.sanitizer.ALLOWED_TAGS) + [
     "p",

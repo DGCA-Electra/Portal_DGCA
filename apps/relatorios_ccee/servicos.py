@@ -16,7 +16,7 @@ import logging
 from .configuracoes.constantes import MESES
 from .configuracoes.gerenciador import carregar_configuracoes, construir_caminhos_relatorio
 from .utilitarios.seguranca import sanitizar_html, sanitizar_assunto
-from .utilitarios.dados import converter_numero_br, formatar_moeda, formatar_data
+from .utilitarios.utils_dados import converter_numero_br, formatar_moeda, formatar_data
 from .utilitarios.arquivos import ler_dados_excel, encontrar_anexo, carregar_templates_email, ErroProcessamento
 from .processadores.relatorios import PROCESSADORES_RELATORIO, processador_generico_relatorio
 
@@ -69,6 +69,7 @@ def criar_rascunho_graph(token_acesso: str, destinatario: str, assunto: str, cor
                     stdout=subprocess.PIPE, 
                     stderr=subprocess.PIPE
                 )
+                
                 if processo.returncode != 0 or not os.path.exists(caminho_temporario_str) or os.path.getsize(caminho_temporario_str) == 0:
                     erro_msg = processo.stderr.decode("cp850", errors="ignore") or "Erro desconhecido no copy"
                     logging.error(f"CMD Copy falhou para {caminho_anexo.name}: {erro_msg}")

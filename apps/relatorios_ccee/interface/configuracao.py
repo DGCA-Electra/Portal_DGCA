@@ -4,10 +4,11 @@ import json
 import logging
 import string
 from typing import Any
-import src.configuracoes.constantes as config
-from src.configuracoes.gerenciador import carregar_configuracoes, salvar_configuracoes
-from src.utilitarios.arquivos import carregar_templates_email, salvar_templates_email
-import src.servicos as services
+import configuracoes.constantes as config
+from configuracoes.gerenciador import carregar_configuracoes, salvar_configuracoes
+from utilitarios.arquivos import carregar_templates_email, salvar_templates_email
+import servicos as services
+
 def col_letter_to_index(letter: str) -> int:
     """Converte 'A' para 0, 'B' para 1, 'AA' para 26, etc."""
     letter = letter.upper().strip()
@@ -16,6 +17,7 @@ def col_letter_to_index(letter: str) -> int:
         if c in string.ascii_uppercase:
             num = num * 26 + (ord(c) - ord('A') + 1)
     return num - 1 if num > 0 else 0
+
 def show_config_page() -> None:
     """Renderiza a página de configurações."""
     st.title("⚙️ Configurações do Sistema")

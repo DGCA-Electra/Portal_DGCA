@@ -4,10 +4,10 @@ import logging
 import streamlit.components.v1 as components
 from datetime import datetime
 
-import src.configuracoes.constantes as config
-from src.configuracoes.gerenciador import carregar_configuracoes
-import src.servicos as services
-from src.utilitarios.tabelas import tratar_valores_df
+import configuracoes.constantes as config
+from configuracoes.gerenciador import carregar_configuracoes
+import servicos as services
+from utilitarios.tabelas import tratar_valores_df
 
 def iniciar_estado_sessao():
     mes_atual_idx = datetime.now().month - 1
