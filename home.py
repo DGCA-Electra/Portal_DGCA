@@ -7,7 +7,6 @@ from PIL import Image
 # CONFIGURAÇÃO DE CAMINHOS
 # ==========================
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 caminho_logo = os.path.join(current_dir, "assets", "logo.png")
 caminho_icone = os.path.join(current_dir, "assets", "icon.png")
 
@@ -17,23 +16,6 @@ if os.path.exists(caminho_icone):
         icon_image = Image.open(caminho_icone)
     except Exception:
         pass
-
-# ==========================
-# CONFIGURAÇÃO DA PÁGINA
-# ==========================
-st.set_page_config(
-    page_title="Portal DGCA",
-    page_icon=icon_image if icon_image else "⚡",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-
-st.sidebar.title("Portal DGCA")
-
-if os.path.exists(caminho_logo):
-    st.image(caminho_logo, width=250)
-else:
-    st.warning(f"Logo não encontrada em: {caminho_logo}")
 
 # ==========================
 # CONFIGURAÇÃO DAS APLICAÇÕES
@@ -60,56 +42,45 @@ APLICACOES_DGCA = [
 ]
 
 # ==========================
-# CARGA DE DADOS
+# INTERFACE PRINCIPAL (HOME)
 # ==========================
-@st.cache_data(ttl=3600)
-def carregar_dados_contatos():
-    home_dir = os.path.expanduser("~")
-    caminho_relativo = os.path.join(
-        "ELECTRA COMERCIALIZADORA DE ENERGIA S.A",
-        "GE - DGCA",
-        "DGC",
-        "Macro",
-        "Contatos de E-mail para Macros.xlsx"
-    )
-    caminho_completo = os.path.join(home_dir, caminho_relativo)
-
-    if os.path.exists(caminho_completo):
-        return pd.read_excel(caminho_completo, engine="openpyxl"), caminho_completo
-
-    return None, caminho_completo
-
-# ==========================
-# INTERFACE PRINCIPAL
-# ==========================
-def main():
+def show_home():
+    """Função que renderiza o conteúdo da página inicial."""
     if os.path.exists(caminho_logo):
         st.logo(caminho_logo)
 
     st.title("Portal DGCA")
     st.write("Hub central de aplicações para a DGCA.")
-
     st.divider()
 
     st.subheader("🚀 Aplicações DGCA")
     
-    if APLICACOES_DGCA:
-        colunas = st.columns(len(APLICACOES_DGCA))
+    colunas = st.columns(len(APLICACOES_DGCA))
+    for col, app in zip(colunas, APLICACOES_DGCA):
+        with col:
+            with st.container(border=True):
+                st.markdown(f"### {app['icon']} {app['nome']}")
+                st.write(app['desc'])
+                st.page_link(app["page"], label="Acessar Sistema", use_container_width=True)
 
-        for col, app in zip(colunas, APLICACOES_DGCA):
-            with col:
-                with st.container(border=True):
-                    st.markdown(f"### {app['icon']} {app['nome']}")
-                    st.write(app['desc'])
-                    
-                    if "page" in app:
-                        st.page_link(
-                            app["page"],
-                            label="Acessar Sistema",
-                            use_container_width=True
-                        )
-                    else:
-                        st.button("Em Breve", disabled=True, use_container_width=True, key=app["nome"])
+# ==========================
+# ESTRUTURA DE NAVEGAÇÃO
+# ==========================
+# Definimos as páginas. A primeira da lista é a padrão (Home).
+pg = st.navigation([
+    st.Page(show_home, title="Portal DGCA", icon="🏠", default=True),
+    st.Page("pages/01_Relatorios_CCEE.py", title="Relatórios CCEE", icon="📧"),
+    st.Page("pages/02_Analise_Demandas.py", title="Análise de Demandas", icon="📊"),
+    st.Page("pages/03_Resumo_Operacoes.py", title="Resumo de Operações", icon="📈"),
+])
 
-if __name__ == "__main__":
-    main()
+# Configurações globais (aba do navegador e ícone)
+st.set_page_config(
+    page_title="Portal DGCA",
+    page_icon=icon_image if icon_image else "⚡",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Executa o roteamento das páginas
+pg.run()
