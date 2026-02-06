@@ -22,11 +22,13 @@ if os.path.exists(caminho_icone):
 # CONFIGURAÇÃO DA PÁGINA
 # ==========================
 st.set_page_config(
-    page_title="Portal DGCA - Electra",
+    page_title="Portal DGCA",
     page_icon=icon_image if icon_image else "⚡",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+st.sidebar.title("Portal DGCA")
 
 if os.path.exists(caminho_logo):
     st.image(caminho_logo, width=250)
