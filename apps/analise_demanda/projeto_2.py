@@ -13,11 +13,15 @@ def run_Projeto_2():
 
     st.title("Otimização de Demanda e Modalidade Tarifária")
 
-    ##========================================= 1 DADOS====================================================##
+    # Pega o diretório onde o projeto_2.py está localizado
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # Constrói o caminho para o arquivo dados.xlsx na mesma pasta
+    file_path = os.path.join(BASE_DIR, "dados.xlsx")
 
-    file_path = r"C:\DGCA\apps\Análise Demanda\dados.xlsx"
     df_cadastro = pd.read_excel(file_path, sheet_name="Dados_Cadastro")
     df_historico = pd.read_excel(file_path, sheet_name="Dados_Históricos")
+
+    ##========================================= 1 DADOS====================================================##
 
     cliente = df_cadastro["Apelido"].dropna().unique().tolist()
 

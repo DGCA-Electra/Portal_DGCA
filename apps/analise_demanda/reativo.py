@@ -6,7 +6,9 @@ def run_Reativo ():
 
     st.title ("Análise de Reativos")
 
-    file_path = r"C:\DGCA\apps\Análise Demanda\dados.xlsx"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(BASE_DIR, "dados.xlsx")
+
     df_cadastro = pd.read_excel(file_path, sheet_name="Dados_Cadastro")
     df_historico = pd.read_excel(file_path, sheet_name="Dados_Históricos")
 
