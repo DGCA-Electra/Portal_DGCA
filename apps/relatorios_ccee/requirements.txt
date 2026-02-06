@@ -1,8 +1,0 @@
-python-dotenv
-streamlit
-pandas
-openpyxl
-jinja2
-bleach
-msal
-requests

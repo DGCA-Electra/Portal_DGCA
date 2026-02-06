@@ -13,12 +13,12 @@ from pathlib import Path as caminho
 from typing import Dict, List, Any, Optional, Tuple
 from jinja2 import Environment, BaseLoader, meta
 import logging
-from src.configuracoes.constantes import MESES
-from src.configuracoes.gerenciador import carregar_configuracoes, construir_caminhos_relatorio
-from src.utilitarios.seguranca import sanitizar_html, sanitizar_assunto
-from src.utilitarios.dados import converter_numero_br, formatar_moeda, formatar_data
-from src.utilitarios.arquivos import ler_dados_excel, encontrar_anexo, carregar_templates_email, ErroProcessamento
-from src.processadores.relatorios import PROCESSADORES_RELATORIO, processador_generico_relatorio
+from .configuracoes.constantes import MESES
+from .configuracoes.gerenciador import carregar_configuracoes, construir_caminhos_relatorio
+from .utilitarios.seguranca import sanitizar_html, sanitizar_assunto
+from .utilitarios.dados import converter_numero_br, formatar_moeda, formatar_data
+from .utilitarios.arquivos import ler_dados_excel, encontrar_anexo, carregar_templates_email, ErroProcessamento
+from .processadores.relatorios import PROCESSADORES_RELATORIO, processador_generico_relatorio
 
 def criar_rascunho_graph(token_acesso: str, destinatario: str, assunto: str, corpo: str, anexos: List[caminho]) -> bool:
     """Cria um rascunho de e-mail na caixa do usuário logado via MS Graph API."""
