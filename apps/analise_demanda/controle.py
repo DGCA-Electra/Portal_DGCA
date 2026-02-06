@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
+import os
 
 def run_Controle ():
 
@@ -11,7 +12,8 @@ def run_Controle ():
     st.write ("Acompanhamento Ultrapassagens de Demanda:")
 
     # Leitura dos dados
-    file_path = r"C:\DGCA\apps\Análise Demanda\dados.xlsx"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(BASE_DIR, "dados.xlsx")
     df_cadastro = pd.read_excel(file_path, sheet_name="Dados_Cadastro")
     df_historico = pd.read_excel(file_path, sheet_name="Dados_Históricos")
 

@@ -7,7 +7,7 @@ st.set_page_config(page_title="Relatórios CCEE", layout="wide")
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-project_root = os.path.join(current_dir, "..", "apps", "Relatórios CCEE")
+project_root = os.path.join(current_dir, "..", "apps", "relatorios_ccee")
 script_path = os.path.join(project_root, "app.py")
 
 if project_root not in sys.path:

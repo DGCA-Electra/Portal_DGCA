@@ -1,8 +1,8 @@
 # app.py
 import streamlit as st
-from Projeto_2 import run_Projeto_2
-from Reativo import run_Reativo
-from Controle import run_Controle
+from projeto_2 import run_Projeto_2
+from reativo import run_Reativo
+from controle import run_Controle
 
 st.set_page_config(page_title="Página Inicial", page_icon="icon.png",layout="wide",initial_sidebar_state="expanded")
 

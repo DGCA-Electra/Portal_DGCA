@@ -7,8 +7,8 @@ st.set_page_config(page_title="Análise de Demandas", layout="wide")
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-project_root = os.path.join(current_dir, "..", "apps", "Análise Demanda")
-script_path = os.path.join(project_root, "Pagina_inicial.py")
+project_root = os.path.join(current_dir, "..", "apps", "analise_demanda")
+script_path = os.path.join(project_root, "pagina_inicial.py")
 
 if project_root not in sys.path:
     sys.path.append(project_root)
@@ -18,7 +18,7 @@ if os.path.exists(script_path):
     try:
         os.chdir(project_root)
 
-        spec = importlib.util.spec_from_file_location("Pagina_inicial", script_path)
+        spec = importlib.util.spec_from_file_location("pagina_inicial", script_path)
         module = importlib.util.module_from_spec(spec)
         sys.modules["Pagina_inicial"] = module
         spec.loader.exec_module(module)
