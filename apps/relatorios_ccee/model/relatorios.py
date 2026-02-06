@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
-from src.utilitarios.arquivos import ler_dados_excel
-from src.utilitarios.dados import converter_numero_br 
+from arquivos import ler_dados_excel
+from utils_dados import converter_numero_br 
 
 def preparar_contexto_lfres(context, row, config, tipo_relatorio, **kwargs):
 
@@ -24,7 +24,7 @@ def preparar_contexto_lfres(context, row, config, tipo_relatorio, **kwargs):
 
 def preparar_contexto_lfn001(context, row, config, tipo_relatorio, **kwargs):
 
-    from src.utilitarios.dados import converter_numero_br
+    from model.utils_dados import converter_numero_br
     context["ValorLiquidacao"] = converter_numero_br(row.get("ValorLiquidacao", 0))
     context["ValorLiquidado"] = converter_numero_br(row.get("ValorLiquidado", 0))
     context["ValorInadimplencia"] = converter_numero_br(row.get("ValorInadimplencia", 0))

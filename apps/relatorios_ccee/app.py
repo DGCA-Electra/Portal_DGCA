@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from .interface.ui_relatorios import exibir_pagina_principal
-from .interface.configuracao import show_config_page
-from .interface.login import show_login_page
+from view.ui_relatorios import exibir_pagina_principal
+from .view.configuracao import show_config_page
+from .view.login import show_login_page
 
 LOG_DIR = 'logs'
 os.makedirs(LOG_DIR, exist_ok=True)

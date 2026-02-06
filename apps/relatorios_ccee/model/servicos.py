@@ -9,16 +9,16 @@ import shutil
 import tempfile
 import subprocess
 import tempfile
+import logging
 from pathlib import Path as caminho
 from typing import Dict, List, Any, Optional, Tuple
 from jinja2 import Environment, BaseLoader, meta
-import logging
-from .configuracoes.constantes import MESES
-from .configuracoes.gerenciador import carregar_configuracoes, construir_caminhos_relatorio
-from .utilitarios.seguranca import sanitizar_html, sanitizar_assunto
-from .utilitarios.utils_dados import converter_numero_br, formatar_moeda, formatar_data
-from .utilitarios.arquivos import ler_dados_excel, encontrar_anexo, carregar_templates_email, ErroProcessamento
-from .processadores.relatorios import PROCESSADORES_RELATORIO, processador_generico_relatorio
+from configuracoes.constantes import MESES
+from configuracoes.gerenciador import carregar_configuracoes, construir_caminhos_relatorio
+from seguranca import sanitizar_html, sanitizar_assunto
+from utils_dados import converter_numero_br, formatar_moeda, formatar_data
+from arquivos import ler_dados_excel, encontrar_anexo, carregar_templates_email, ErroProcessamento
+from .relatorios import PROCESSADORES_RELATORIO, processador_generico_relatorio
 
 def criar_rascunho_graph(token_acesso: str, destinatario: str, assunto: str, corpo: str, anexos: List[caminho]) -> bool:
     """Cria um rascunho de e-mail na caixa do usuário logado via MS Graph API."""

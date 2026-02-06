@@ -6,8 +6,8 @@ import string
 from typing import Any
 import configuracoes.constantes as config
 from configuracoes.gerenciador import carregar_configuracoes, salvar_configuracoes
-from utilitarios.arquivos import carregar_templates_email, salvar_templates_email
-import servicos as services
+from model.arquivos import carregar_templates_email, salvar_templates_email
+import model.servicos as services
 
 def col_letter_to_index(letter: str) -> int:
     """Converte 'A' para 0, 'B' para 1, 'AA' para 26, etc."""

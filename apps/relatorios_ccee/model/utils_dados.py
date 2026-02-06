@@ -1,6 +1,7 @@
 import pandas as pd
 from typing import Dict, Any, Optional
 import re
+
 def converter_numero_br(val: Any) -> float:
     """Converte 'R$ 1.234,56' ou '(1.234,56)' ou 1234.56 para float. Retorna 0.0 em erro."""
     if val is None:

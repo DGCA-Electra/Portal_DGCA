@@ -4,7 +4,7 @@ import requests
 import os
 import logging
 from dotenv import load_dotenv
-from apps.relatorios_ccee.utilitarios.arquivos import obtem_asset_path
+from model.arquivos import obtem_asset_path
 
 # --- CARREGAMENTO DO AMBIENTE ---
 # Garante que o .env seja lido da pasta atual do aplicativo

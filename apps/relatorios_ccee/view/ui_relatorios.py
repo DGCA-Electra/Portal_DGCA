@@ -6,8 +6,8 @@ from datetime import datetime
 
 import configuracoes.constantes as config
 from configuracoes.gerenciador import carregar_configuracoes
-import servicos as services
-from utilitarios.tabelas import tratar_valores_df
+import model.servicos as services
+from model.tabelas import tratar_valores_df
 
 def iniciar_estado_sessao():
     mes_atual_idx = datetime.now().month - 1
