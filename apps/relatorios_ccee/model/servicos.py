@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 import os
+import streamlit as st
 import base64
 import mimetypes
 import requests
@@ -305,6 +306,10 @@ def carregar_e_processar_dados(config: Dict[str, Any]) -> Tuple[pd.DataFrame, pd
     logging.info(f"Carregando dados de: {config['excel_dados']}")
     df_dados = ler_dados_excel(config["excel_dados"], config["planilha_dados"], cabecalho)
     logging.info(f"Carregando contatos de: {config['excel_contatos']}")
+    try:
+        st.info(f"Contatos - caminho usado: {config.get('excel_contatos')}")
+    except Exception:
+        logging.debug("Streamlit não disponível para exibir caminho em UI")
     df_contatos = ler_dados_excel(config["excel_contatos"], config["planilha_contatos"], 0)
     column_mapping = dict(item.split(":") for item in config["colunas_dados"].split(","))
     df_dados.rename(columns=column_mapping, inplace=True)

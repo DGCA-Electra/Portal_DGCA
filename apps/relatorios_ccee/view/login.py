@@ -111,9 +111,17 @@ def show_login_page():
         except Exception as e:
             st.error(f"Falha ao validar login: {e}")
             logging.exception("Erro durante callback de autenticação:")
+            # Limpa o parâmetro 'code' da URL para evitar reuso de código expirado
+            try:
+                st.experimental_set_query_params()
+            except Exception:
+                logging.debug("Não foi possível limpar query params no ambiente Streamlit")
+            # Gera nova URL de autenticação e exibe botão de login para tentar novamente
             url_auth = auth_controller.obter_url_autenticacao()
             if url_auth:
                 st.markdown(f'<a href="{url_auth}" target="_self" class="button">Tentar Novamente</a>', unsafe_allow_html=True)
+            else:
+                st.error("Erro ao gerar link de login. Atualize a página ou contate o administrador.")
     else:
         url_auth = auth_controller.obter_url_autenticacao()
         if url_auth:

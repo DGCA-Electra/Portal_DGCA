@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import logging
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,10 +12,12 @@ from apps.relatorios_ccee.view.login import show_login_page
 from apps.relatorios_ccee.controller import auth_controller
 from apps.relatorios_ccee.model.arquivos import obtem_asset_path
 
-LOG_DIR = 'logs'
-os.makedirs(LOG_DIR, exist_ok=True)
-LOG_FILE = os.path.join(LOG_DIR, 'app.log')
-logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', encoding='utf-8')
+# Garantir que o log seja escrito na pasta 'logs' da raiz do workspace (cerca de duas pastas acima deste arquivo)
+ROOT_DIR = Path(__file__).resolve().parents[2]
+LOG_DIR = ROOT_DIR / 'logs'
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+LOG_FILE = str(LOG_DIR / 'app.log')
+logging.basicConfig(filename=LOG_FILE, level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s', encoding='utf-8', force=True)
 
 def logout():
     """Delegates logout to the AuthController (clears auth session)."""
@@ -51,9 +54,6 @@ def main() -> None:
         show_config_page()
 
     st.sidebar.warning("Nota: Os e-mails serão criados como rascunhos na sua caixa de entrada.")
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("© 2025 Desenvolvido por Malik Ribeiro")
-
-
+    
 if __name__ == "__main__":
     main()

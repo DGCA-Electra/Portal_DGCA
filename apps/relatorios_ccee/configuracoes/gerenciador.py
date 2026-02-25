@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 from pathlib import Path
 from typing import Dict, Any
 from apps.relatorios_ccee.configuracoes.constantes import DEFAULT_CONFIGS, PATH_CONFIGS, CONFIG_FILE
@@ -14,16 +15,38 @@ def obter_caminhos_brutos_usuario(username: str) -> Dict[str, str]:
 def resolver_melhores_caminhos(preferred_username: str = None) -> Dict[str, str]:
     """
     Tenta encontrar os caminhos válidos.
-    1. Tenta o usuário preferencial (da rede/login).
-    2. Se o caminho não existir, faz fallback para o usuário local (os.environ).
+    Lógica atualizada:
+    1. Tenta primeiro o caminho fixo do analista administrador ('malik.mourad').
+    2. Se não existir, tenta o `preferred_username` (usuário logado).
+    3. Se nenhum existir, faz fallback para o usuário do sistema (os.environ['USERNAME']).
     """
+    # Primeiro, tentar sempre o caminho do usuário administrador fixo
+    default_owner = 'malik.mourad'
+    default_paths = obter_caminhos_brutos_usuario(default_owner)
+    try:
+        if os.path.exists(default_paths.get("raiz_sharepoint", "")) or os.path.exists(default_paths.get("contratos_email_path", "")):
+            logging.info(f"Usando caminho padrão do administrador: {default_owner}")
+            return default_paths
+    except Exception:
+        logging.debug("Erro ao checar existência dos caminhos do admin; prosseguindo")
+
+    # Se não existe o caminho do admin, tentar o usuário preferencial (se houver)
     if preferred_username:
-        paths = obter_caminhos_brutos_usuario(preferred_username)
-        if os.path.exists(paths["raiz_sharepoint"]):
-            return paths
-        print(f"Aviso: Caminho de rede para '{preferred_username}' não encontrado. Tentando local...")
-    local_user = os.getenv('USERNAME', 'malik.mourad')
+        pref_paths = obter_caminhos_brutos_usuario(preferred_username)
+        try:
+            if os.path.exists(pref_paths.get("raiz_sharepoint", "")) or os.path.exists(pref_paths.get("contratos_email_path", "")):
+                logging.info(f"Usando caminho do usuário logado: {preferred_username}")
+                return pref_paths
+            else:
+                logging.warning(f"Caminhos para '{preferred_username}' não encontrados; caindo para usuário do sistema.")
+        except Exception:
+            logging.debug("Erro ao checar existência dos caminhos do usuário preferencial; prosseguindo")
+
+    # Por fim, fallback para o usuário do sistema (ex.: quando executado em servidor)
+    local_user = os.getenv('USERNAME', default_owner)
+    logging.info(f"Fallback para usuário do sistema: {local_user}")
     paths = obter_caminhos_brutos_usuario(local_user)
+    logging.debug(f"Caminhos resolvidos (final): {paths}")
     return paths
 def construir_caminhos_relatorio(report_type: str, ano: str, mes: str, username: str = None) -> Dict[str, str]:
     """

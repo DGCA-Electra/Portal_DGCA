@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Electra - CGH BELA UNIÃO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilo.css">
+
+</head>
+<body>
+
+<div class="report-page">
+    <header>
+        <img src="{{ logo_empresa }}" class="logo-img" alt="Logo">
+        <div class="report-type">Resumo de Operações - {{mes_ano}}</div>
+    </header>
+
+    <div class="unit-band">{{nome_usina}}</div>
+
+    <div class="main-content">
+        <div class="left-column">
+            <div class="card" style="display: flex; flex-direction: column; gap: 30px; height: 100%; box-sizing: border-box;">
+                
+                <div class="floating-title title-left">Informações Gerais</div>
+                <div class="data-group">
+                    <h2>Geração Mensal</h2>
+                    <div class="data-value">
+                        <span class="mwh">{{geracao_mwh | brl(3)}} MWh</span><br>
+                        <span class="mwmed">{{geracao_mwm |brl(6)}} MWmed</span>
+                    </div>
+                </div>
+
+                <div class="data-group">
+                    <h2>Garantia Física</h2>
+                    <div class="data-value">
+                        <span class="mwh">{{gf_total_mwh | brl(3)}} MWh</span><br>
+                        <span class="mwmed">{{gf_total_mwm | brl(6)}} MWmed</span>
+                    </div>
+                </div>
+
+                <div class="data-group">
+                    <h2>Garantia Física MRE</h2>
+                    <div class="data-value">
+                        <span class="mwh">{{gf_mre_com_mwh | brl(3)}} MWh</span><br>
+                        <span class="mwmed">{{gf_mre_com_mwm | brl(6)}} MWmed</span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <span>Mês: {{horas}} h</span>
+                    <span>Perdas: {{perdas | brl(2)}}%</span>
+                    <span>Ajuste MRE:
+                        {%if ajuste_mre < 0 %} 
+                        <span style="color: var(--negative-red)">{{ajuste_mre | brl(2)}}%</span>
+                        {%else%}
+                        <span style="color: var(--positive-green)">{{ajuste_mre | brl(2)}}%</span>
+                        {%endif%}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column" style="display: flex; flex-direction: column; gap: 40px;">
+            <div class="floating-card">
+                <div class="floating-title title-left">Vendas</div>
+                <div class="total-row">
+                    <span>Total:</span>
+                    <div class="values-container">
+                        <span class="val-mwh">{{venda_mwh | brl(3)}} MWh</span><br>
+                        <span class="val-mwmed">{{venda_mwm | brl(6)}} MWmed</span>
+                    </div>
+                </div>
+                <div class="monetary-value">R$ {{venda_rs | brl(2)}}</div>
+                <div class="unit-price">{{preco_venda | brl(2)}} R$/MWh</div>
+            </div>
+
+            <div class="floating-card">
+                <div class="floating-title title-left">Compras</div>
+                <div class="total-row">
+                    <span>Total:</span>
+                    <div class="values-container">
+                        <span class="val-mwh">{{compra_mwh | brl(3)}} MWh</span><br>
+                        <span class="val-mwmed">{{compra_mwm | brl(6)}} MWmed</span>
+                    </div>
+                </div>
+                <div class="monetary-value">R$ {{compra_rs | brl(2)}}</div>
+                <div class="unit-price">{{preco_compra | brl(2)}} R$/MWh</div>
+            </div>
+
+            <div class="info-box">
+                INFORMAÇÕES DETALHADAS DE CONTRATOS NA PÁGINA 2
+            </div>
+        </div>
+    </div>
+
+    <div class="full-width">
+        <div class="floating-card">
+            <div class="floating-title title-center">Lastro</div>
+            <div class="lastro-grid">
+                <div>
+                    <div class="lastro-mwh">{{lastro_mwh_inc | brl(3)}} MWh</div>
+                    <div class="lastro-mwmed">{{lastro_mwm_inc | brl(6)}} MWmed</div>
+                    {%if lastro_mwh_inc < 0 %}
+                    <div class="label-icon"><span class="indicator-icon minus small">-</span> Incentivada</div>
+                    {%else%}
+                    <div class="label-icon"><span class="indicator-icon plus small">+</span> Incentivada</div>
+                    {%endif%}
+                </div>
+                <div>
+                    <div class="lastro-mwh">{{lastro_mwh_conv | brl(3)}} MWh</div>
+                    <div class="lastro-mwmed">{{lastro_mwm_conv | brl(6)}} MWmed</div>
+                    {%if lastro_mwh_conv < 0 %}
+                    <div class="label-icon"><span class="indicator-icon minus small">-</span> Convencional</div>
+                    {%else%}
+                    <div class="label-icon"><span class="indicator-icon plus small">+</span> Convencional</div>
+                    {%endif%}
+                </div>
+                <div>
+                    <div class="lastro-mwh">{{lastro_mwh_mre | brl(3)}} MWh</div>
+                    <div class="lastro-mwmed">{{lastro_mwm_mre | brl(6)}} MWmed</div>
+                    {%if lastro_mwh_mre < 0 %}
+                    <div class="label-icon"><span class="indicator-icon minus small">-</span> MRE</div>
+                    {%else%}
+                    <div class="label-icon"><span class="indicator-icon plus small">+</span> MRE</div>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="exposicao">
+        <h3>Exposição Energética</h3>
+        <div class="big-total">
+            {%if exposicao_mwh < 0 %}
+            <div class="indicator-icon minus">-</div>
+            {%else%}
+            <div class="indicator-icon plus">+</div>
+            {%endif%}
+            <div style="text-align: left;">
+                <div style="font-size: 34px; font-weight: 600;">{{exposicao_mwh | brl(3)}} MWh</div>
+                <div style="font-size: 20px; color: var(--gray-text); font-weight: 600;">{{exposicao_mwm | brl(6)}} MWmed</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="page-break-before: always;"></div>
+
+<div class="pagina-contratos">
+    <header>
+        <img src="{{ logo_empresa }}" class="logo-img" alt="Logo">
+        <div class="report-type">Resumo de Operações - {{mes_ano}}</div>
+    </header>
+
+    <div class="unit-band">{{nome_usina}}</div>
+
+    {% if not quebrar_pagina_compras %}
+    <div class="contratos">
+        <h2>Contratos de Venda</h2>
+            <div class="table-frame">
+                {{tabela_vendas}}
+            </div>
+        <h2>Contratos de Compra</h2>
+            <div class="table-frame">
+                {{tabela_compras}}
+            </div>
+    </div>
+    {% else %}
+    <!-- Mostra apenas vendas nesta página -->
+    <div class="contratos">
+        <h2>Contratos de Venda</h2>
+            <div class="table-frame">
+                {{tabela_vendas}}
+            </div>
+    </div>
+    </div> <!-- fecha .pagina-contratos atual -->
+
+    <div style="page-break-before: always;"></div>
+
+    <!-- Nova página somente para compras (repete cabeçalho) -->
+    <div class="pagina-contratos">
+        <header>
+            <img src="{{ logo_empresa }}" class="logo-img" alt="Logo">
+            <div class="report-type">Resumo de Operações - {{mes_ano}}</div>
+        </header>
+
+        <div class="unit-band">{{nome_usina}}</div>
+
+        <div class="contratos">
+            <h2>Contratos de Compra</h2>
+            <div class="table-frame">
+                {{tabela_compras}}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
