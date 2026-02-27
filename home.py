@@ -118,7 +118,7 @@ def show_home():
 # ==========================
 # SIDEBAR - INFORMAÇÕES
 # ==========================
-st.sidebar.markdown("<div style='text-align: center; padding: 10px;'><small>© 2026 Desenvolvido pelo DGCA <br> Malik, Artur e Eduardo</small></div>", unsafe_allow_html=True)
+st.sidebar.markdown("<div style='text-align: center; padding: 10px;'><small>© 2026 Desenvolvido pelo DGCA <br> Artur, Eduardo e Malik</small></div>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 # ==========================
 # ESTRUTURA DE NAVEGAÇÃO

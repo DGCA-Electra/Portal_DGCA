@@ -16,7 +16,24 @@ CLIENT_SECRET = os.environ.get("AZURE_CLIENT_SECRET")
 TENANT_ID = os.environ.get("AZURE_TENANT_ID")
 REDIRECT_URI = os.environ.get("AZURE_REDIRECT_URI")
 AUTHORITY = f"https://login.microsoftonline.com/{TENANT_ID}"
-SCOPES = ["User.Read", "Mail.Send"]
+SCOPES = ["User.Read", "Mail.Send", "Mail.ReadWrite"]
+
+
+def verificar_config() -> list[str]:
+    """Retorna mensagens de aviso se alguma configuração estiver incorreta ou ausente.
+
+    A view pode exibir essas mensagens para facilitar diagnóstico durante login.
+    """
+    msgs: list[str] = []
+    if not CLIENT_ID or len(CLIENT_ID) < 5:
+        msgs.append("CLIENT_ID parece inválido ou vazio.")
+    if not TENANT_ID or len(TENANT_ID) < 5:
+        msgs.append("TENANT_ID parece inválido ou vazio.")
+    if not REDIRECT_URI or not REDIRECT_URI.startswith("http"):
+        msgs.append("REDIRECT_URI está ausente ou não começa com http.")
+    if not CLIENT_SECRET:
+        msgs.append("CLIENT_SECRET não está definido.")
+    return msgs
 
 # Lazily create MSAL app
 _msal_app = None
