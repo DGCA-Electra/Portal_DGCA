@@ -37,9 +37,9 @@ Aplicacao Streamlit utilizada para geracao e envio de relatorios CCEE via Micros
    streamlit run pages/01_Relatorios_CCEE.py
    ```
 
-## 🔐 Autenticao Microsoft (MSAL)
+## 🔐 Autenticacao Microsoft (MSAL)
 
-A aplicao utiliza `msal` para obter tokens via fluxo de indice de autorizao. Os escopos requeridos so:
+A aplicao utiliza `msal` para obter tokens via fluxo de indice de autorizacao. Os escopos requeridos so:
 
 - `User.Read`
 - `Mail.Send`
@@ -60,17 +60,17 @@ O tenant pode exigir que um administrador conceda permicoes. Faa login como admi
 
 - Use Python 3.11+.
 - Rode `pre-commit` se configurado.
-- Logs podem ser analisados para depurao de erros de permisso ou conexo.
+- Logs podem ser analisados para depurao de erros de permissao ou conexo.
 
 ## 📄 Outros utilitarios
 
-- `gerar_certificados.py` - gera certificados genricos.
-- `home.py` - possvel pgina inicial.
+- `gerar_certificados.py` - gera certificados genericos.
+- `home.py` - possivel pagina inicial.
 - etc.
 
 ## 📚 Mais informaes
 
-Leia o cdigo em `apps/relatorios_ccee/` para detalhes de implementao. Cada mdulo  documentado.
+Leia o cdigo em `apps/relatorios_ccee/` para detalhes de implementao. Cada modulo  documentado.
 
 ---
 
